@@ -39,12 +39,12 @@ function compareNumber() {
   attempts++;
 
   if (guessNumber === randomNumber) {
+    btnPlay.classList.add('show');
     return showResult(
       `🎉 Correct! You guessed it in ${attempts} ${attempts > 1 ? 'attempts' : 'attempt'}!`,
       'rgba(0, 252, 0, 0.5)',
       false,
     );
-    btnPlay.classList.add('show');
   }
 
   const diff = Math.abs(guessNumber - randomNumber);
