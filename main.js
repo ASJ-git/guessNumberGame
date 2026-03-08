@@ -1,58 +1,59 @@
+// DOM Elements
 const guess = document.getElementById('guessNo');
 const result = document.getElementById('result');
 const btn = document.querySelector('.btn');
 const btnPlay = document.querySelector('.btn.play');
 
+// Game State
 const randomNumber = Math.floor(Math.random() * 100) + 1;
+let attempts = 0;
 
-const setTime = () => {
-  setTimeout(() => {
-    result.innerHTML = '';
-    result.style.backgroundColor = '';
-  }, 1000);
-};
-let arr = [];
-function addToArray() {
-  const value = Number(guess.value);
-  if (!isNaN(value)) {
-    arr.push(value);
+// Helpers
+function showResult(message, color, autoClear = true) {
+  result.innerHTML = message;
+  result.style.backgroundColor = color;
+
+  if (autoClear) {
+    setTimeout(() => {
+      result.innerHTML = '';
+      result.style.backgroundColor = '';
+    }, 1000);
   }
 }
 
+function getHint(diff, direction) {
+  return diff > 10 ? `Too ${direction}! Try again` : `${direction}! Try again`;
+}
+
+// Main Logic
 function compareNumber() {
-  addToArray();
-
   const guessNumber = parseInt(guess.value);
-  if (isNaN(guessNumber) || guessNumber > 100 || guessNumber < 0) {
-    result.innerHTML = 'Please enter a valid number from 1 to 100';
-    result.style.backgroundColor = 'rgba(250, 0, 0, 0.5)';
-    setTime();
-  } else if (guessNumber === randomNumber) {
-    result.innerHTML = ` Congratulations! You guessed the correct number in ${arr.length} ${arr.length > 1 ? 'attempts' : 'attempt'}!`;
-    result.style.backgroundColor = 'rgba(0, 252, 0, 0.5)';
-    btnPlay.classList.add('show');
-  } else if (guessNumber < randomNumber) {
-    result.style.backgroundColor = 'rgba(252, 0, 0, 0.5)';
-    if (randomNumber - guessNumber > 10) {
-      result.innerHTML = 'Too low! Try again';
-    } else {
-      result.innerHTML = 'Low! Try again';
-    }
-    setTime();
-  } else {
-    result.style.backgroundColor = 'rgba(252, 0, 0, 0.5)';
-    if (guessNumber - randomNumber > 10) {
-      result.innerHTML = 'Too high! Try again';
-    } else {
-      result.innerHTML = 'High! Try again';
-    }
-    setTime();
+
+  if (isNaN(guessNumber) || guessNumber < 1 || guessNumber > 100) {
+    return showResult(
+      'Please enter a valid number from 1 to 100',
+      'rgba(250, 0, 0, 0.5)',
+    );
   }
+
+  attempts++;
+
+  if (guessNumber === randomNumber) {
+    return showResult(
+      `🎉 Correct! You guessed it in ${attempts} ${attempts > 1 ? 'attempts' : 'attempt'}!`,
+      'rgba(0, 252, 0, 0.5)',
+      false,
+    );
+    btnPlay.classList.add('show');
+  }
+
+  const diff = Math.abs(guessNumber - randomNumber);
+  const direction = guessNumber < randomNumber ? 'Low' : 'High';
+  showResult(getHint(diff, direction), 'rgba(252, 0, 0, 0.5)');
 }
 
+// Event Listeners
 btn.addEventListener('click', compareNumber);
 guess.addEventListener('keyup', (e) => {
-  if (e.keyCode == 13) {
-    compareNumber();
-  }
+  if (e.key === 'Enter') compareNumber();
 });
