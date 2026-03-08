@@ -35,12 +35,13 @@ body {
   border: 1px solid;
 }
 .container .btn {
+  border: 0;
   background-color: dodgerblue;
   color: #fff;
   display: inline-block;
   border-radius: 10px;
   text-decoration: none;
-  padding: 1rem;
+  padding: 1.2rem;
   transform: scale(0.9);
   transition: all 250ms ease-in;
 }

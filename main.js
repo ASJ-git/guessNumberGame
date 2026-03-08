@@ -1,7 +1,7 @@
 // DOM Elements
 const guess = document.getElementById('guessNo');
 const result = document.getElementById('result');
-const btn = document.querySelector('.btn');
+const btn = document.querySelector('button.btn');
 const btnPlay = document.querySelector('.btn.play');
 
 // Game State
@@ -39,6 +39,8 @@ function compareNumber() {
   attempts++;
 
   if (guessNumber === randomNumber) {
+    guess.disabled = true; // disable input
+    btn.disabled = true; // disable input
     btnPlay.classList.add('show');
     return showResult(
       `🎉 Correct! You guessed it in ${attempts} ${attempts > 1 ? 'attempts' : 'attempt'}!`,
