@@ -30,6 +30,7 @@ body {
   padding: 10px;
 }
 .container input[type='number'] {
+  text-align: center;
   padding: 1rem;
   border-radius: 10px;
   outline: 0;
