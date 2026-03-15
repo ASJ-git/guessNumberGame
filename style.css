@@ -9,7 +9,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -20,6 +20,7 @@ body {
   text-align: center;
   width: 90%;
   max-width: 600px;
+  margin-top: 20px;
 }
 .container h1 {
   margin-bottom: 1rem;
@@ -66,14 +67,16 @@ body {
   padding: 10px;
 }
 footer {
-  display: flex;
-  justify-content: center;
-  position: relative;
-
   .copyright {
-    position: fixed;
-    bottom: 5px;
     color: #fff;
-    font-weight: 520;
+  }
+}
+#scores {
+  background-color: #fff;
+  padding: 1.2rem;
+  border-radius: 20px;
+  font-weight: bold;
+  .high {
+    padding-bottom: 10px;
   }
 }

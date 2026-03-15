@@ -3,10 +3,31 @@ const guess = document.getElementById('guessNo');
 const result = document.getElementById('result');
 const btn = document.querySelector('button.btn');
 const btnPlay = document.querySelector('.btn.play');
+const highestScore = document.querySelector('.high');
+const prevScore = document.querySelector('.prev');
 
 // Game State
 const randomNumber = Math.floor(Math.random() * 100) + 1;
 let attempts = 0;
+
+//  LocalStorage
+highestScore.innerHTML = `Highest Score: ${localStorage.getItem('high') ?? 0}`;
+prevScore.innerHTML = `Previous Score: ${localStorage.getItem('prev') ?? 0}`;
+
+function calculateScore() {
+  let newScore = 100 - attempts;
+  let storedHigh = Number(localStorage.getItem('high'));
+
+  prevScore.innerHTML = `Previous Score: ${newScore}`;
+  localStorage.setItem('prev', newScore);
+
+  if (storedHigh && storedHigh > newScore) {
+    highestScore.innerHTML = `Highest Score: ${storedHigh}`;
+  } else {
+    localStorage.setItem('high', newScore);
+    highestScore.innerHTML = `Highest Score: ${newScore}`;
+  }
+}
 
 // Helpers
 function showResult(message, color, autoClear = true) {
@@ -41,6 +62,7 @@ function compareNumber() {
   if (guessNumber === randomNumber) {
     guess.disabled = true; // disable input
     btn.disabled = true; // disable input
+    calculateScore();
     btnPlay.classList.add('show');
     return showResult(
       `🎉 Correct! You guessed it in ${attempts} ${attempts > 1 ? 'attempts' : 'attempt'}!`,
