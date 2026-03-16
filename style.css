@@ -12,7 +12,15 @@ body {
   justify-content: space-around;
   align-items: center;
 }
-
+.btn {
+  border: 0;
+  background-color: dodgerblue;
+  color: #fff;
+  display: inline-block;
+  border-radius: 10px;
+  text-decoration: none;
+  padding: 5px 8px;
+}
 .container {
   background-color: #fff;
   padding: 2rem 1rem;
@@ -37,12 +45,6 @@ body {
   border: 1px solid;
 }
 .container .btn {
-  border: 0;
-  background-color: dodgerblue;
-  color: #fff;
-  display: inline-block;
-  border-radius: 10px;
-  text-decoration: none;
   padding: 1.2rem;
   transform: scale(0.9);
   transition: all 250ms ease-in;
@@ -73,11 +75,17 @@ footer {
   }
 }
 #scores {
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
-  padding: 1.2rem;
+  padding: 1rem 1.2rem;
   border-radius: 20px;
   font-weight: bold;
   .high {
     padding-bottom: 10px;
+  }
+  .btn {
+    margin-top: 5px;
+    align-self: center;
   }
 }

@@ -1,7 +1,8 @@
 // DOM Elements
 const guess = document.getElementById('guessNo');
 const result = document.getElementById('result');
-const btn = document.querySelector('button.btn');
+const resetBtn = document.querySelector('button.resetBtn');
+const btn = document.querySelector('button.guessBtn');
 const btnPlay = document.querySelector('.btn.play');
 const highestScore = document.querySelector('.high');
 const prevScore = document.querySelector('.prev');
@@ -29,6 +30,16 @@ function calculateScore() {
   }
 }
 
+function resetLocalStorage() {
+  localStorage.removeItem('high');
+  localStorage.removeItem('prev');
+
+  // highestScore.innerHTML = `Highest Score: 0`;
+  // prevScore.innerHTML = `Previous Score: 0`;
+
+  location.reload();
+}
+
 // Helpers
 function showResult(message, color, autoClear = true) {
   result.innerHTML = message;
@@ -38,6 +49,8 @@ function showResult(message, color, autoClear = true) {
     setTimeout(() => {
       result.innerHTML = '';
       result.style.backgroundColor = '';
+      // clear input
+      guess.value = '';
     }, 1000);
   }
 }
@@ -80,4 +93,14 @@ function compareNumber() {
 btn.addEventListener('click', compareNumber);
 guess.addEventListener('keyup', (e) => {
   if (e.key === 'Enter') compareNumber();
+});
+
+resetBtn.addEventListener('click', (e) => {
+  const userConfirms = window.confirm(
+    '⚠️ This will erase all your scores. Continue?',
+  );
+
+  if (userConfirms) {
+    resetLocalStorage();
+  }
 });
