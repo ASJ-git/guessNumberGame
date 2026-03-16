@@ -12,8 +12,8 @@ const randomNumber = Math.floor(Math.random() * 100) + 1;
 let attempts = 0;
 
 //  LocalStorage
-highestScore.innerHTML = `Highest Score: ${localStorage.getItem('high') ?? 0}`;
-prevScore.innerHTML = `Previous Score: ${localStorage.getItem('prev') ?? 0}`;
+highestScore.innerHTML = `Highest Score: ${localStorage.getItem('high') ?? '--'}`;
+prevScore.innerHTML = `Previous Score: ${localStorage.getItem('prev') ?? '--'}`;
 
 function calculateScore() {
   let newScore = 100 - attempts;
@@ -34,8 +34,8 @@ function resetLocalStorage() {
   localStorage.removeItem('high');
   localStorage.removeItem('prev');
 
-  // highestScore.innerHTML = `Highest Score: 0`;
-  // prevScore.innerHTML = `Previous Score: 0`;
+  // highestScore.innerHTML = `Highest Score: _`;
+  // prevScore.innerHTML = `Previous Score: _`;
 
   location.reload();
 }
