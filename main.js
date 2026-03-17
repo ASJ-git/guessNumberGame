@@ -2,13 +2,15 @@
 const guess = document.getElementById('guessNo');
 const result = document.getElementById('result');
 const resetBtn = document.querySelector('button.resetBtn');
+const restartBtn = document.querySelector('button.restartBtn');
 const btn = document.querySelector('button.guessBtn');
 const btnPlay = document.querySelector('.btn.play');
+
 const highestScore = document.querySelector('.high');
 const prevScore = document.querySelector('.prev');
 
 // Game State
-const randomNumber = Math.floor(Math.random() * 100) + 1;
+let randomNumber = Math.floor(Math.random() * 100) + 1;
 let attempts = 0;
 
 //  LocalStorage
@@ -71,10 +73,10 @@ function compareNumber() {
   }
 
   attempts++;
-
   if (guessNumber === randomNumber) {
     guess.disabled = true; // disable input
-    btn.disabled = true; // disable input
+    btn.disabled = true; // disable guessing btn
+    restartBtn.disabled = true; // disable restart btn
     calculateScore();
     btnPlay.classList.add('show');
     return showResult(
@@ -87,6 +89,11 @@ function compareNumber() {
   const diff = Math.abs(guessNumber - randomNumber);
   const direction = guessNumber < randomNumber ? 'Low' : 'High';
   showResult(getHint(diff, direction), 'rgba(252, 0, 0, 0.5)');
+}
+// reset game function
+function resetGame() {
+  randomNumber = Math.floor(Math.random() * 100) + 1;
+  attempts = 0;
 }
 
 // Event Listeners
@@ -104,3 +111,5 @@ resetBtn.addEventListener('click', (e) => {
     resetLocalStorage();
   }
 });
+
+restartBtn.addEventListener('click', resetGame);

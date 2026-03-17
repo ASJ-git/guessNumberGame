@@ -12,6 +12,8 @@ body {
   justify-content: space-around;
   align-items: center;
 }
+
+
 .btn {
   border: 0;
   background-color: dodgerblue;
@@ -88,5 +90,12 @@ footer {
   .btn {
     margin-top: 5px;
     align-self: center;
+  }
+}
+button.btn:disabled {
+  cursor: not-allowed;
+  &:hover {
+    transform: scale(0.9);
+    opacity: 1;
   }
 }
